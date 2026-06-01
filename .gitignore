@@ -3,3 +3,5 @@ __pycache__
 venv
 imagens
 backup
+drive_connection/service_account.json
+uploads

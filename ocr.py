@@ -1,36 +1,47 @@
 import easyocr
 import cv2
-from groq import fazer_pergunta
 
-msn = ""
+def raspagem_dados(nome_arquivo):
 
-# Inicializa OCR em português
-reader = easyocr.Reader(['pt'])
+    msn = ""
 
-# Caminho da imagem
-imagem = 'imagens/imagem.jpeg'
+    # Inicializa OCR em português
+    reader = easyocr.Reader(['pt'])
 
-# Ler imagem
-img = cv2.imread(imagem)
+    # Caminho da imagem
+    imagem = f'uploads/{nome_arquivo}'
 
-# Converter para escala de cinza
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Ler imagem
+    img = cv2.imread(imagem)
 
-# Melhorar contraste
-gray = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1]
+    # Converter para escala de cinza
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-# Ler texto
-resultado = reader.readtext(gray)
+    # Melhorar contraste
+    gray = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1]
 
-print("\n=== TEXO ENCONTRADO ===\n")
+    # Ler texto
+    resultado = reader.readtext(gray)
 
-for item in resultado:
-    texto = item[1]
-    confianca = item[2]
+    msm = ""
 
-    msn += f"{texto}\n"
-    print(f"Texto: {texto}")
-    print(f"Confiança: {confianca:.2f}")
-    print("-" * 30)
+    print("\n=== TEXO ENCONTRADO ===\n")
 
-print(fazer_pergunta(msn=resultado))
+    for item in resultado:
+        texto = item[1]
+        confianca = item[2]
+
+        print(f"Texto: {texto}")
+        print(f"Confiança: {confianca:.2f}")
+        print("-" * 30)
+
+        msm += f"Texto: {texto}\n"
+        msm += f"Confiança: {confianca:.2f}\n"
+        msm += "-" * 30
+        msm += "\n"
+
+
+    print("\n=======================\n")
+    return msm
+
+# print(fazer_pergunta(msn=resultado))

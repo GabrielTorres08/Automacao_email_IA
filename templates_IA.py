@@ -16,7 +16,10 @@ def template_padrao() :
                     "corpo_email": "escreva um corpo de email adequado às informações dos dados",
                     "cabeçalho_email" "cabeçalho de email adequado às informações dos dados": 
                 }''' + f'''
-    REGRAS:            
+    REGRAS:
+
+    0 - Os dados que você analisará são resgatados usando o cv2 python, então por isso, só considere informações que possuam valores de clareza/confiança >= 0.5, se os valores forem menores, descarte-os ou coloque-os como Null, em caso de email ou contato de telefone
+
     1 - Caso não haja telefone ou email, retorne o parâmetro do JSON como Null.
 
 
